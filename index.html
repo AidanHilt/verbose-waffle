@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css"></link>
     </head>
 
     <body>
         <h1>Business Name</h1>
     
     <div id="leftMenu">
-        <ul>
+        <ul id="menuListTop">
 
         </ul>
         <button type="button" id="addItem" class="leftMenuButton">+</button>
-       
-        <ul>
+        <ul id="menuListBottom">
 
         </ul>
-
         <button type="button" id="addExpense" class="leftMenuButton">+</button>
     </div>
 
     <div id="center">
         <div id="sliders">
-            <label for="fameSlider" class="centerLabel">Fame</label>
+            <label for="fameSlider" class="centerLabel" id="fameLabel">Fame</label>
             <input type="range" min="-1" max="100" value="10" class="slider" id="fameSlider">
 
-            <label for="repSlider" class="centerLabel">Reputation</label>
+            <label for="repSlider" class="centerLabel" id="repLabel">Reputation</label>
             <input type="range" min="-100" max="100" value="0" class="slider" id="repSlider">
 
-            <label for="compSlider" class="centerLabel">Competition</label>
+            <label for="compSlider" class="centerLabel" id="compLabel">Competition</label>
             <input type="range" min="-1" max="100" value="10" class="slider" id="compSlider">
         </div>
 
-        <button type="button" id="simDay" class="simButton">1 DAY</button>
-        <button type="button" id="simWeek" class="simButton">1 WEEK</button>
-        <button type="button" id="simMonth" class="simButton">1 MONTH</button>
+        <div id="centralInfo"></div>
+
+        <div id="simButtons">
+            <button type="button" id="simDay" class="simButton">1 DAY</button>
+            <button type="button" id="simWeek" class="simButton">1 WEEK</button>
+            <button type="button" id="simMonth" class="simButton">1 MONTH</button>
+        </div>
     </div>
 
+    <script src="homepage.js"></script>
 
     </body>
 </html>

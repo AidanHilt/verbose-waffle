@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
 
 function createWindow () {
   // Create the browser window.
@@ -11,8 +11,10 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  win.removeMenu();
+  //win.removeMenu();
   win.loadFile('index.html');
+
 }
 
 app.whenReady().then(createWindow);
+

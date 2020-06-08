@@ -7,19 +7,48 @@ h1{
     align-items: center;
     float: left;
     width: 25%;
+    display: flex;
+    flex-direction: column;
 }
 
 #center{
     float:left;
     width: 50%;
-    display:flex;
+    display: flex;
     align-items: center;
     flex-direction: column;
 }
 
 #sliders{
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+}
+
+#menuListTop{
+    height:21vh;
+}
+
+#menuListBottom{
+    height:34vh;
+}
+
+#centralInfo{
+    height:58vh;
+}
+
+#simButtons{
+    width: 100%;
+}
+
+.leftMenuButton{
+    width: 30px;
+    height: 30px;
+    margin: 10px;
+}
+
+.simButton{
+    width: 32%;
+    margin: 1px;
 }

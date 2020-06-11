@@ -2,7 +2,7 @@
   "name": "businesstool",
   "version": "0.0.1",
   "description": "A tool for running a fantasy business in tabletop games",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."

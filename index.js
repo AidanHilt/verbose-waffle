@@ -41,7 +41,7 @@ $("#addItem").on("click", function(){
     }
   });
 
-  //win.removeMenu();
+  win.removeMenu();
   win.loadFile('addItems.html');
 });
 

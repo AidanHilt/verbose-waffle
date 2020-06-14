@@ -3,6 +3,10 @@ h1{
     text-align: center;
 }
 
+li{
+    list-style-type: none;
+}
+
 #leftMenu{
     align-items: center;
     float: left;
@@ -51,4 +55,8 @@ h1{
 .simButton{
     width: 32%;
     margin: 1px;
+}
+
+.leftMenuUL{
+    width: 100%;
 }

@@ -2,44 +2,42 @@
 <html>
     <head>
         <link rel="stylesheet" href="style.css">
+        <script src="index.js" defer></script>
     </head>
 
     <body>
         <h1>Business Name</h1>
     
-    <div id="leftMenu">
-        <ul id="menuListTop">
+        <div id="leftMenu">
+            <ul id="menuListTop" class="leftMenuUL">
 
-        </ul>
-        <button type="button" id="addItem" class="leftMenuButton" title="Add an item that this business sells">+</button>
-        <ul id="menuListBottom">
+            </ul>
+            <button type="button" id="addItem" class="leftMenuButton" title="Add an item that this business sells">+</button>
+            <ul id="menuListBottom" class="leftMenuUL">
 
-        </ul>
-        <button type="button" id="addExpense" class="leftMenuButton" title="Add an expense for this business">+</button>
-    </div>
-
-    <div id="center">
-        <div id="sliders">
-            <label for="fameSlider" class="centerLabel" id="fameLabel">Fame</label>
-            <input type="range" min="-1" max="100" value="10" class="slider" id="fameSlider">
-
-            <label for="repSlider" class="centerLabel" id="repLabel">Reputation</label>
-            <input type="range" min="-100" max="100" value="0" class="slider" id="repSlider">
-
-            <label for="compSlider" class="centerLabel" id="compLabel">Competition</label>
-            <input type="range" min="-1" max="100" value="10" class="slider" id="compSlider">
+            </ul>
+            <button type="button" id="addExpense" class="leftMenuButton" title="Add an expense for this business">+</button>
         </div>
 
-        <div id="centralInfo"></div>
+        <div id="center">
+            <div id="sliders">
+                <label for="fameSlider" class="centerLabel" id="fameLabel">Fame</label>
+                <input type="range" min="-1" max="100" value="10" class="slider" id="fameSlider">
 
-        <div id="simButtons">
-            <button type="button" id="simDay" class="simButton" title="Simulate one day of business">1 DAY</button>
-            <button type="button" id="simWeek" class="simButton" title="Simulate one week of business">1 WEEK</button>
-            <button type="button" id="simMonth" class="simButton" title="Simulate one month of business">1 MONTH</button>
+                <label for="repSlider" class="centerLabel" id="repLabel">Reputation</label>
+                <input type="range" min="-100" max="100" value="0" class="slider" id="repSlider">
+
+                <label for="compSlider" class="centerLabel" id="compLabel">Competition</label>
+                <input type="range" min="-1" max="100" value="10" class="slider" id="compSlider">
+            </div>
+
+            <div id="centralInfo"></div>
+
+            <div id="simButtons">
+                <button type="button" id="simDay" class="simButton" title="Simulate one day of business">1 DAY</button>
+                <button type="button" id="simWeek" class="simButton" title="Simulate one week of business">1 WEEK</button>
+                <button type="button" id="simMonth" class="simButton" title="Simulate one month of business">1 MONTH</button>
+            </div>
         </div>
-    </div>
-
-    <script src="index.js"></script>
-
     </body>
 </html>

@@ -1,5 +1,5 @@
 /*Importing libraries that we need*/
-const {ipcRenderer} = require('electron');
+const {ipcRenderer, remote} = require('electron');
 const $ = require('jquery');
 const fs = require('fs');
 
@@ -28,6 +28,23 @@ document.getElementById("compSlider").addEventListener('input', function(){
     business.competition = document.getElementById("compSlider").value;
 });
 
+/*Adding functionality to open the menus for adding items for sale
+and adding expenses.
+*/
+$("#addItem").on("click", function(){
+  const BrowserWindow = remote.BrowserWindow;
+  let win = new BrowserWindow({
+    width: 400,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  //win.removeMenu();
+  win.loadFile('addItems.html');
+});
+
 //Adding in the information of the loaded business
 updateUI(business);
 
@@ -51,6 +68,17 @@ function updateUI(business){
 
     $("h1").text(business.name);
 }
+
+//================
+//Event Listeners
+//================
+
+ipcRenderer.on("add-item-forward", function(event, arg){
+  business["products"].push(arg);
+  console.log(arg);
+  $("#menuListTop").append("<li>" + arg["itemName"] + ":  " + arg["itemPrice"] + "</li>");
+});
+
 
 //================
 //Helper functions 

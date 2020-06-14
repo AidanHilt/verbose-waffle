@@ -6,14 +6,37 @@
         <div id="mainDiv">
             <h1>Add new item</h1>
 
-            <form>
+            <form onsubmit="sendItemInfo()" id="mainForm">
                 <label for="itemName">Item Name</label>
-                <input type="text" id="itemName" title="Name of the item this business sells">
+                <input type="text" id="itemName" title="Name of the item this business sells" name="itemName">
                 <label for="itemPrice">Item Price</label>
-                <input min=0 type="number" id="itemPrice" title="The price of this item, in the base unit of the game. Fractions OK">
+                <input min=0 type="number" id="itemPrice" title="The price of this item, in the base unit of the game." name="itemPrice">
                 <input type=submit title="Add the item to the list of items this business can sell." value="Add Item">
             </form>
-
         </div>
+
+        <script>
+            /*
+            This script provides a function to submit the results of
+            the form back to the renderer, which is storing the
+            business information. We're doing this in a script tag,
+            instead of a separate file, because this is the only Javascript
+            this page should need
+            */
+            const {electron, ipcRenderer} = require('electron');
+            const $ = require('jquery');
+            
+            function sendItemInfo(){
+                info = $("#mainForm").serializeArray();
+                cleanInfo = {};
+
+                $(info).each(function(i, elem){
+                    cleanInfo[elem.name] = elem.value;
+                });
+                
+                ipcRenderer.send("add-item", cleanInfo);
+                
+            }
+        </script>
     </body>
 </html>

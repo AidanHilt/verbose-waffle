@@ -28,25 +28,6 @@ document.getElementById("compSlider").addEventListener('input', function(){
     business.competition = document.getElementById("compSlider").value;
 });
 
-/*Adding functionality to open the menus for adding items for sale
-and adding expenses.
-*/
-$("#addItem").on("click", function(){
-  const BrowserWindow = remote.BrowserWindow;
-  let win = new BrowserWindow({
-    width: 400,
-    height: 400,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
-
-  win.removeMenu();
-  win.loadFile('addItems.html');
-});
-
-//Adding in the information of the loaded business
-updateUI(business);
 
 /**
  * 
@@ -71,16 +52,43 @@ function updateUI(business){
     $("h1").text(business.name);
 }
 
-//================
-//Event Listeners
-//================
+//==========================
+//UI Setup & Event Listeners
+//==========================
 
+//Adding listeners for events from main
 ipcRenderer.on("add-item-forward", function(event, arg){
   if(arg["itemName"] != "" && arg["itemPrice"] != ""){
     business["products"].push(arg);
     $("#menuListTop").append("<li class=menuListTopItem id=menuListTop" + business["products"].length + ">" + arg["itemName"] + ":  " + arg["itemPrice"] + "</li>");
   }
 });
+
+//UI event listeners
+$("#menuListTop").on("dblclick", "li", function(e){
+  ipcRenderer.send()
+});
+
+/*Adding functionality to open the menus for adding items for sale
+and adding expenses.
+*/
+$("#addItem").on("click", function(){
+  const BrowserWindow = remote.BrowserWindow;
+  let win = new BrowserWindow({
+    width: 400,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  win.removeMenu();
+  win.loadFile('addItems.html');
+});
+
+
+//Adding in the information of the loaded business
+updateUI(business);
 
 
 //================

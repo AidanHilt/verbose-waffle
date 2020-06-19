@@ -1,17 +1,38 @@
 <html>
     <head>
         <link rel="stylesheet" href="editItem.css">
+
+        <script>
+            /*
+            Like most of the other single-function menus, I'm opting to include this 
+            script because it will likely be rather small. I will reevaluate if that becomes
+            necessary
+            */
+            const {electron, ipcRenderer} = require('electron');
+            const $ = require('jquery');
+
+            ipcRenderer.on("edit-item-forward", function(event, arg){
+                $("h1").text = "Edit" + arg["itemName"];
+                $("#itemName").val(arg["itemName"]);
+                $("#itemPrice").val(arg["itemPrice"]);
+            });
+        </script>
     </head>
 
     <body>
         <h1>Edit Item</h1>
         
         <form onsubmit="sendItemInfo()" id="mainForm">
-            <label for="itemName">Item Name</label>
-            <input type="text" id="itemName" title="Name of the item this business sells" name="itemName">
-            <label for="itemPrice">Item Price</label>
-            <input min=0 type="number" id="itemPrice" title="The price of this item, in the base unit of the game." name="itemPrice">
-            <input type=submit title="Add the item to the list of items this business can sell." value="Add Item">
+            <div id="formInputs">
+                <label for="itemName">Item Name</label>
+                <input type="text" id="itemName" title="Name of the item this business sells" name="itemName">
+                <label for="itemPrice">Item Price</label>
+                <input min=0 type="number" id="itemPrice" title="The price of this item, in the base unit of the game." name="itemPrice">
+            </div>
+            <div>
+                <button onclick="deleteItem()" title="Delete this item from the list.">Delete Item</button>
+                <input type=submit title="Finish editing this item" value="Save Changes">
+            </div>
         </form>
     </body>
 </html>

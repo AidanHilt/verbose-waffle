@@ -56,6 +56,8 @@ updateUI(business);
  * Updates the UI with new information about a business loaded from a file, or generated
  * if no file could be found.
  */
+
+ //TODO Add functionality to update the item and expense areas
 function updateUI(business){
     document.getElementById("fameSlider").value = business.fame;
     $("#fameLabel").text("Fame: " + document.getElementById("fameSlider").value);
@@ -74,9 +76,10 @@ function updateUI(business){
 //================
 
 ipcRenderer.on("add-item-forward", function(event, arg){
-  business["products"].push(arg);
-  console.log(arg);
-  $("#menuListTop").append("<li>" + arg["itemName"] + ":  " + arg["itemPrice"] + "</li>");
+  if(arg["itemName"] != "" && arg["itemPrice"] != ""){
+    business["products"].push(arg);
+    $("#menuListTop").append("<li class=menuListTopItem id=menuListTop" + business["products"].length + ">" + arg["itemName"] + ":  " + arg["itemPrice"] + "</li>");
+  }
 });
 
 

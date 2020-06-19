@@ -5,6 +5,8 @@ h1{
 
 li{
     list-style-type: none;
+    text-align: center;
+    margin-left: -7ch;
 }
 
 #leftMenu{
@@ -58,5 +60,6 @@ li{
 }
 
 .leftMenuUL{
-    width: 100%;
+    width: 75%;
+    overflow: auto;
 }

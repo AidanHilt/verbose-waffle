@@ -1,1 +1,6 @@
-{"name":"The Shitfaced Hippogriff","debts":[],"products":[],"fame":30,"reputation":-30,"competition":0}
+{"name":"The Shitfaced Hippogriff","debts":[],"products":[
+    {"itemName": "dfsg", "itemPrice": "345"},
+    {"itemName": "Obama Toilet", "itemPrice": "69"},
+    {"itemName": "Guacamole Nigga Penis", "itemPrice": "420"}
+],
+"fame":30,"reputation":-30,"competition":0}

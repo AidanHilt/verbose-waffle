@@ -28,3 +28,19 @@ ipcMain.on("add-item", function(event, arg){
   BrowserWindow.getFocusedWindow().close();
   mainWindow.webContents.send("add-item-forward", arg);
 });
+
+ipcMain.on("edit-item", function(event, arg){
+  let win = new BrowserWindow({
+    width: 400,
+    height: 300,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  //win.removeMenu();
+  win.loadFile('editItem.html');
+  win.webContents.once("dom-ready", () => {
+    win.webContents.send("edit-item-forward", arg);
+  });
+});

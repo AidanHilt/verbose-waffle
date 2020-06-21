@@ -29,6 +29,10 @@ document.getElementById("compSlider").addEventListener('input', function(){
 });
 
 
+//===================
+//UI Update Functions
+//===================
+
 /**
  * 
  * @param {*} business A business object loaded from a JSON file that represents
@@ -50,9 +54,18 @@ function updateUI(business){
     $("#compLabel").text("Competition: " + document.getElementById("compSlider").value);
 
     $("h1").text(business.name);
+
+    updateItemMenu(business);
 }
 
-//==========================
+function updateItemMenu(business){
+  $("#menuListTop").empty();
+  $.each(business["products"], function(index, value){
+    $("#menuListTop").append("<li class=menuListTopItem data-index=" + index + ">" + value["itemName"] + ": " + value["itemPrice"] + "</li>");
+  });
+}
+
+//========================== 
 //UI Setup & Event Listeners
 //==========================
 
@@ -60,13 +73,17 @@ function updateUI(business){
 ipcRenderer.on("add-item-forward", function(event, arg){
   if(arg["itemName"] != "" && arg["itemPrice"] != ""){
     business["products"].push(arg);
-    $("#menuListTop").append("<li class=menuListTopItem id=menuListTop" + business["products"].length + ">" + arg["itemName"] + ":  " + arg["itemPrice"] + "</li>");
+    updateItemMenu(business);
+    console.log(business);
   }
 });
 
 //UI event listeners
 $("#menuListTop").on("dblclick", "li", function(e){
-  ipcRenderer.send()
+  index = $(this).attr("data-index");
+  let payload = business["products"][index];
+  payload.index = index;
+  ipcRenderer.send("edit-item", payload);
 });
 
 /*Adding functionality to open the menus for adding items for sale

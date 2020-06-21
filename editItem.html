@@ -2,19 +2,22 @@
     <head>
         <link rel="stylesheet" href="editItem.css">
 
-        <script>
+        <script defer>
             /*
             Like most of the other single-function menus, I'm opting to include this 
             script because it will likely be rather small. I will reevaluate if that becomes
             necessary
             */
-            const {electron, ipcRenderer} = require('electron');
+            const {ipcRenderer} = require('electron');
             const $ = require('jquery');
+            let index = -1;
 
             ipcRenderer.on("edit-item-forward", function(event, arg){
-                $("h1").text = "Edit" + arg["itemName"];
+                console.log(arg);
+                $("h1").text("Edit " + arg["itemName"]);
                 $("#itemName").val(arg["itemName"]);
                 $("#itemPrice").val(arg["itemPrice"]);
+                index = arg["index"];
             });
         </script>
     </head>

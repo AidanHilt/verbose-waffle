@@ -89,6 +89,7 @@ ipcRenderer.on("update-edited-item-forward", function(event, arg){
 
 ipcRenderer.on("delete-item-forward", function(event, arg){
   business["products"].splice(arg, 1);
+  console.log(arg);
 
   updateItemMenu(business);
 });

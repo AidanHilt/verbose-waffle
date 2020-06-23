@@ -46,10 +46,13 @@ ipcMain.on("edit-item", function(event, arg){
 });
 
 ipcMain.on("update-edited-item", function(event, arg){
+  BrowserWindow.getFocusedWindow().close();
+  console.log("Editing");
   mainWindow.webContents.send("update-edited-item-forward", arg);
 });
 
 ipcMain.on("delete-item", function(event, arg){
-  BrowserWindow.getFocusedWindow().close();
+  //BrowserWindow.getFocusedWindow().close();
+  console.log("Deleting");
   mainWindow.webContents.send("delete-item-forward", arg);
 });

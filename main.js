@@ -44,3 +44,12 @@ ipcMain.on("edit-item", function(event, arg){
     win.webContents.send("edit-item-forward", arg);
   });
 });
+
+ipcMain.on("update-edited-item", function(event, arg){
+  mainWindow.webContents.send("update-edited-item-forward", arg);
+});
+
+ipcMain.on("delete-item", function(event, arg){
+  BrowserWindow.getFocusedWindow().close();
+  mainWindow.webContents.send("delete-item-forward", arg);
+});

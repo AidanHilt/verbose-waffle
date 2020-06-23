@@ -78,6 +78,21 @@ ipcRenderer.on("add-item-forward", function(event, arg){
   }
 });
 
+ipcRenderer.on("update-edited-item-forward", function(event, arg){
+  let index = arg["index"];
+
+  business["products"][index]["itemName"] = arg["itemName"];
+  business["products"][index]["itemPrice"] = arg["itemPrice"];
+
+  updateItemMenu(business);
+});
+
+ipcRenderer.on("delete-item-forward", function(event, arg){
+  business["products"].splice(arg, 1);
+
+  updateItemMenu(business);
+});
+
 //UI event listeners
 $("#menuListTop").on("dblclick", "li", function(e){
   index = $(this).attr("data-index");

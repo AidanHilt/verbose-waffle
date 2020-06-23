@@ -19,13 +19,37 @@
                 $("#itemPrice").val(arg["itemPrice"]);
                 index = arg["index"];
             });
+
+            /**
+            Sends a message back to edit the item with the
+            changes made on this page.
+            */
+            function editItemInfo(){
+                info = $("#mainForm").serializeArray();
+                cleanInfo = {};
+                cleanInfo.index = index;
+
+                $(info).each(function(i, elem){
+                    cleanInfo[elem.name] = elem.value;
+                });
+                
+                ipcRenderer.send("update-edited-item", cleanInfo);
+            }
+
+            /**
+            Sends a message back to delete the currently-edited
+            item. 
+            */
+            function deleteItem(){
+                ipcRenderer.send("delete-item", index);
+            }
         </script>
     </head>
 
     <body>
         <h1>Edit Item</h1>
         
-        <form onsubmit="sendItemInfo()" id="mainForm">
+        <form onsubmit="editItemInfo()" id="mainForm">
             <div id="formInputs">
                 <label for="itemName">Item Name</label>
                 <input type="text" id="itemName" title="Name of the item this business sells" name="itemName">

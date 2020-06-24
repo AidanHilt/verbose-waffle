@@ -48,6 +48,13 @@ li{
     width: 100%;
 }
 
+#expensesMenu{
+    display: none;
+    position: absolute;
+    top: 83vh;
+    left: 6ch;
+}
+
 .leftMenuButton{
     width: 30px;
     height: 30px;

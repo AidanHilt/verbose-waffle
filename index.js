@@ -119,6 +119,10 @@ $("#addItem").on("click", function(){
   win.loadFile('addItems.html');
 });
 
+$("#addExpense").on("click", function(){
+  $("#expensesMenu").slideToggle(250);
+});
+
 
 //Adding in the information of the loaded business
 updateUI(business);

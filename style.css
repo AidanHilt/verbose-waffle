@@ -7,6 +7,8 @@ li{
     list-style-type: none;
     text-align: center;
     margin-left: -7ch;
+    cursor: pointer;
+    user-select: none;
 }
 
 #leftMenu{
@@ -53,6 +55,11 @@ li{
     position: absolute;
     top: 83vh;
     left: 6ch;
+}
+
+#expensesMenuContent li{
+    outline: solid;
+    outline-color: black;
 }
 
 .leftMenuButton{

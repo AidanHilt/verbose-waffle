@@ -123,6 +123,14 @@ $("#addExpense").on("click", function(){
   $("#expensesMenu").slideToggle(250);
 });
 
+$("#loan").on("click", function(){
+  ipcRenderer.send("addLoan");
+});
+
+$("regularExpense").on("click", function(){
+  ipcRenderer.send("addExpense");
+});
+
 
 //Adding in the information of the loaded business
 updateUI(business);

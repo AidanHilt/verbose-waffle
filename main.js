@@ -42,7 +42,7 @@ ipcMain.on("edit-item", function(event, arg){
   });
 });
 
-ipcMain.on("addLoan", function(event, arg){
+ipcMain.on("add-loan", function(event, arg){
   let win = new BrowserWindow({
     width: 400,
     height: 300,
@@ -51,7 +51,7 @@ ipcMain.on("addLoan", function(event, arg){
     }
   });
   
-  win.removeMenu();
+  //win.removeMenu();
   win.loadFile("addLoan.html");
 
 });
@@ -71,4 +71,9 @@ ipcMain.on("update-edited-item", function(event, arg){
 ipcMain.on("delete-item", function(event, arg){
   BrowserWindow.getFocusedWindow().close();
   mainWindow.webContents.send("delete-item-forward", arg);
+});
+
+ipcMain.on("added-loan", function(event, arg){
+  BrowserWindow.getFocusedWindow().close();
+  mainWindow.webContents.send("added-loan-forward", arg);
 });

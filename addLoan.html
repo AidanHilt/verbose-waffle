@@ -1,19 +1,39 @@
 <html>
     <head>
+        <link rel="stylesheet" href="addItems.css">
 
+        <script defer>
+            const {ipcRenderer} = require('electron');
+            const $ = require('jquery');
+
+            function forwardLoanInfo(){
+                info = $("#mainForm").serializeArray();
+                cleanInfo = {};
+
+                $(info).each(function(i, elem){
+                    cleanInfo[elem.name] = elem.value;
+                });
+
+                cleanInfo.type = "loan";
+                
+                ipcRenderer.send("added-loan", cleanInfo);
+            }
+        </script>
     </head>
 
     <body>
-        <h1>Adding Loan</h1>
+        <div id="mainDiv">
+            <h1>Adding Loan</h1>
 
-        <form>
-            <label for="loanName">Loan Name</label>
-            <input type="text" id="loanName" title="A name to identify the loan by">
-            <label for="loanAmt">Loan Amount</label>
-            <input type="number" min="0" id="loanAmt" title="The principal of the loan">
-            <label for="interest">Interest</label>
-            <input type="number" min="0" max="100" id="interest" title="The interest charged on the loan, in APR">
-            <input type="submit" value="Add Loan">
-        </form>
+            <form id="mainForm" onsubmit="forwardLoanInfo()">
+                <label for="loanName">Loan Name</label>
+                <input type="text" id="loanName" title="A name to identify the loan by" name="loanName">
+                <label for="loanAmt">Loan Amount</label>
+                <input type="number" min="0" id="loanAmt" title="The principal of the loan" name="loanAmt">
+                <label for="interest">Interest</label>
+                <input type="number" min="0" max="100" id="interest" title="The interest charged on the loan, in APR" name="interest">
+                <input type="submit" value="Add Loan">
+            </form>
+        </div>
     </body>
 </html>

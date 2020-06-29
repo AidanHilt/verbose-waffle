@@ -56,12 +56,25 @@ function updateUI(business){
     $("h1").text(business.name);
 
     updateItemMenu(business);
+    updateExpensesMenu(business);
 }
 
 function updateItemMenu(business){
   $("#menuListTop").empty();
   $.each(business["products"], function(index, value){
     $("#menuListTop").append("<li class=menuListTopItem data-index=" + index + ">" + value["itemName"] + ": " + value["itemPrice"] + "</li>");
+  });
+}
+
+function updateExpensesMenu(business){
+  $("#menuListBottom").empty();
+  console.log(business);
+  $.each(business["expenses"], function(index, value){
+    if(value.type === "expense"){
+      $("#menuListBottom").append("<li class=menuListBottomItem data-index=" + index + ">" + value["expenseName"] + ":" + value["expenseAmt"] + ":" + value["occurence"]);
+    }else{
+      $("#menuListBottom").append("<li class=MenuListBottomItem data-index=" + index + ">" + value["loanName"] + ":" + value["loanAmt"] + ":" + value["interest"] + "</li>");
+    }
   });
 }
 
@@ -74,8 +87,12 @@ ipcRenderer.on("add-item-forward", function(event, arg){
   if(arg["itemName"] != "" && arg["itemPrice"] != ""){
     business["products"].push(arg);
     updateItemMenu(business);
-    console.log(business);
   }
+});
+
+ipcRenderer.on("added-loan-forward", function(event, arg){
+  business["expenses"].push(arg);
+  updateExpensesMenu(business);
 });
 
 ipcRenderer.on("update-edited-item-forward", function(event, arg){
@@ -124,11 +141,13 @@ $("#addExpense").on("click", function(){
 });
 
 $("#loan").on("click", function(){
-  ipcRenderer.send("addLoan");
+  $("#expensesMenu").slideUp(250);
+  ipcRenderer.send("add-loan");
 });
 
-$("regularExpense").on("click", function(){
-  ipcRenderer.send("addExpense");
+$("#regularExpense").on("click", function(){
+  $("#expensesMenu").slideUp(250);
+  ipcRenderer.send("add-expense");
 });
 
 

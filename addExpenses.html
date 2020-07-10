@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="addExpenses.css">
+
+        <script defer>
+            /*
+            This script provides a function to submit the results of
+            the form back to the renderer, which is storing the
+            business information. We're doing this in a script tag,
+            instead of a separate file, because this is the only Javascript
+            this page should need
+            */
+            const { ipcRenderer } = require('electron');
+            const $ = require('jquery');
+    
+            function sendExpenseInfo() {
+                info = $("#mainForm").serializeArray();
+                cleanInfo = {};
+    
+                $(info).each(function (i, elem) {
+                    cleanInfo[elem.name] = elem.value;
+                });
+
+                cleanInfo.type = "expense";
+    
+                ipcRenderer.send("added-expense", cleanInfo);
+    
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <div id="mainDiv">
+            <h1>Add Expense</h1>
+
+            <form id="mainForm" onsubmit="sendExpenseInfo()">
+                <label for="expenseName">Expense Name</label>
+                <input type="text" title="The name of the expense." id="expenseName" name="expenseName">
+                <label for="expenseValue">Cost</label>
+                <input type="number" title="The cost of the expense, per time period" id="expenseAmt" name="expenseAmt">
+                <label for="expenseFrequency">Expense Frequency</label>
+                <fieldset id="expenseFrequency">
+                    <label for="daily">Daily</label>
+                    <input type="radio" value="daily" name="expenseFrequency" id="daily">
+                    <label for="weekly">Weekly</label>
+                    <input type="radio" value="weekly" name="expenseFrequency" id="weekly">
+                    <label for="monthly">Monthly</label>
+                    <input type="radio" value="monthly" name="expenseFrequency" id="monthly">
+                </fieldset>
+                <input type="submit" value="Add Expense">
+            </form>
+        </div>
+    </body>
+</html>

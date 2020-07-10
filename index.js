@@ -71,7 +71,7 @@ function updateExpensesMenu(business){
   console.log(business);
   $.each(business["expenses"], function(index, value){
     if(value.type === "expense"){
-      $("#menuListBottom").append("<li class=menuListBottomItem data-index=" + index + ">" + value["expenseName"] + ":" + value["expenseAmt"] + ":" + value["occurence"]);
+      $("#menuListBottom").append("<li class=menuListBottomItem data-index=" + index + ">" + value["expenseName"] + ":" + value["expenseAmt"] + ":" + value["expenseFrequency"]);
     }else{
       $("#menuListBottom").append("<li class=MenuListBottomItem data-index=" + index + ">" + value["loanName"] + ":" + value["loanAmt"] + ":" + value["interest"] + "</li>");
     }
@@ -91,6 +91,11 @@ ipcRenderer.on("add-item-forward", function(event, arg){
 });
 
 ipcRenderer.on("added-loan-forward", function(event, arg){
+  business["expenses"].push(arg);
+  updateExpensesMenu(business);
+});
+
+ipcRenderer.on("added-expense-forward", function(event, arg){
   business["expenses"].push(arg);
   updateExpensesMenu(business);
 });

@@ -47,15 +47,27 @@ ipcMain.on("add-loan", function(event, arg){
     width: 400,
     height: 300,
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: true
     }
   });
   
-  //win.removeMenu();
+  win.removeMenu();
   win.loadFile("addLoan.html");
 
 });
 
+ipcMain.on("add-expense", function(event, arg){
+  let win = new BrowserWindow({
+    width: 400,
+    height: 300,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  win.removeMenu();
+  win.loadFile("addExpenses.html");
+});
 //These all involve forwarding messages, mostly
 //back to the main window
 ipcMain.on("add-item", function(event, arg){
@@ -76,4 +88,10 @@ ipcMain.on("delete-item", function(event, arg){
 ipcMain.on("added-loan", function(event, arg){
   BrowserWindow.getFocusedWindow().close();
   mainWindow.webContents.send("added-loan-forward", arg);
+});
+
+ipcMain.on("added-expense", function(event, arg){
+  BrowserWindow.getFocusedWindow().close();
+  console.log(arg);
+  mainWindow.webContents.send("added-expense-forward", arg);
 });

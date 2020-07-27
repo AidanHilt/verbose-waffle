@@ -68,12 +68,11 @@ function updateItemMenu(business){
 
 function updateExpensesMenu(business){
   $("#menuListBottom").empty();
-  console.log(business);
   $.each(business["expenses"], function(index, value){
     if(value.type === "expense"){
       $("#menuListBottom").append("<li class=menuListBottomItem data-index=" + index + ">" + value["expenseName"] + ":" + value["expenseAmt"] + ":" + value["expenseFrequency"]);
     }else{
-      $("#menuListBottom").append("<li class=MenuListBottomItem data-index=" + index + ">" + value["loanName"] + ":" + value["loanAmt"] + ":" + value["interest"] + "</li>");
+      $("#menuListBottom").append("<li class=MenuListBottomLoan data-index=" + index + ">" + value["loanName"] + ":" + value["loanAmt"] + ":" + value["interest"] + "</li>");
     }
   });
 }
@@ -111,9 +110,24 @@ ipcRenderer.on("update-edited-item-forward", function(event, arg){
 
 ipcRenderer.on("delete-item-forward", function(event, arg){
   business["products"].splice(arg, 1);
-  console.log(arg);
 
   updateItemMenu(business);
+});
+
+ipcRenderer.on("edited-expense-forward", function(event, arg){
+  let index = arg["index"];
+
+  business["expenses"][index]["expenseName"] = arg["expenseName"];
+  business["expenses"][index]["expenseAmt"] = arg["expenseAmt"];
+  business["expenses"][index]["expenseFrequency"] = arg["expenseFrequency"];
+
+  updateExpensesMenu(business);
+});
+
+ipcRenderer.on("delete-expense-forward", function(event, arg){
+  business["expenses"].splice(arg, 1);
+
+  updateExpensesMenu(business);
 });
 
 //UI event listeners
@@ -122,6 +136,13 @@ $("#menuListTop").on("dblclick", "li", function(e){
   let payload = business["products"][index];
   payload.index = index;
   ipcRenderer.send("edit-item", payload);
+});
+
+$("#menuListBottom").on("dblclick", "li", function(e){
+  index = $(this).attr("data-index");
+  let payload = business["expenses"][index];
+  payload.index = index;
+  ipcRenderer.send("edit-expense", payload);
 });
 
 /*Adding functionality to open the menus for adding items for sale

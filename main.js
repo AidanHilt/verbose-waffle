@@ -92,6 +92,35 @@ ipcMain.on("added-loan", function(event, arg){
 
 ipcMain.on("added-expense", function(event, arg){
   BrowserWindow.getFocusedWindow().close();
-  console.log(arg);
   mainWindow.webContents.send("added-expense-forward", arg);
+});
+
+ipcMain.on("edit-expense", function(event, arg){
+  let win = new BrowserWindow({
+    width: 400,
+    height: 300,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  win.removeMenu();
+
+  if(arg.type === "expense"){
+    win.loadFile("editExpense.html");
+    win.webContents.once("dom-ready", () => {
+      win.webContents.send("edit-expense-forward", arg);
+    });
+  }
+});
+
+ipcMain.on("edited-expense", function(event, arg){
+  BrowserWindow.getFocusedWindow().close();
+  mainWindow.webContents.send("edited-expense-forward", arg);
+})
+
+ipcMain.on("delete-expense", function(event, arg){
+  BrowserWindow.getFocusedWindow().close();
+  mainWindow.webContents.send("delete-expense-forward", arg);
+  console.log(arg);
 });

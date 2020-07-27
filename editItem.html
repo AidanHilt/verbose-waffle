@@ -13,7 +13,6 @@
             let index = -1;
 
             ipcRenderer.on("edit-item-forward", function(event, arg){
-                console.log(arg);
                 $("h1").text("Edit " + arg["itemName"]);
                 $("#itemName").val(arg["itemName"]);
                 $("#itemPrice").val(arg["itemPrice"]);
